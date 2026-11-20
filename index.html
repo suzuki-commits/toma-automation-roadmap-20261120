@@ -1,0 +1,2108 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>
+      会長・秘書チームの業務自動化 具体的な進め方（案）｜株式会社コミクス
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Kurenaido&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #032642;
+        --ink: #0d2236;
+        --sub: #3b4f63;
+        --paper: #f3f6f8;
+        --card: #ffffff;
+        --band: #dbe5ef;
+        --wood: #a8721f;
+        --wood-soft: #f5ead6;
+        --gold: #e3b667;
+        --leaf: #17694c;
+        --leaf-soft: #e2f1ea;
+        --line: #c3cfdb;
+        --pen: #c2362b;
+        --mincho:
+          "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        --gothic:
+          "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", "Yu Gothic",
+          sans-serif;
+        --hand: "Zen Kurenaido", "Yomogi", "Hiragino Maru Gothic ProN", cursive;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--gothic);
+        font-size: 18px;
+        line-height: 1.85;
+        font-feature-settings: "palt";
+      }
+      a {
+        color: var(--navy);
+        text-underline-offset: 3px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--wood);
+        outline-offset: 3px;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+      .num {
+        font-family: var(--mincho);
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+      }
+      .nb {
+        white-space: nowrap;
+      }
+
+      /* 上部バー */
+      .topbar {
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+      .topbar .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 54px;
+      }
+      .topbar .brand {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--sub);
+      }
+      .printbtn {
+        font: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--navy);
+        background: #fff;
+        border: 1.5px solid var(--navy);
+        border-radius: 4px;
+        padding: 6px 16px;
+        cursor: pointer;
+      }
+      .printbtn:hover {
+        background: var(--navy);
+        color: #fff;
+      }
+
+      /* 表紙 */
+      .hero {
+        background: var(--navy);
+        color: #fff;
+        padding: 64px 0 72px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: 56px;
+        align-items: center;
+      }
+      .hero-to {
+        font-size: 17px;
+        line-height: 1.7;
+        margin: 0 0 26px;
+        padding-left: 16px;
+        border-left: 3px solid var(--gold);
+      }
+      .hero-to b {
+        font-size: 21px;
+        font-weight: 700;
+      }
+      .hero-kicker {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: var(--gold);
+        margin: 0 0 10px;
+      }
+      .hero-title {
+        font-family: var(--mincho);
+        font-weight: 800;
+        font-size: clamp(34px, 4.6vw, 56px);
+        line-height: 1.4;
+        margin: 0 0 22px;
+        letter-spacing: 0.01em;
+      }
+      .hero-lede {
+        font-size: 18px;
+        margin: 0;
+        color: #d5e0ea;
+        max-width: 32em;
+      }
+
+      /* 紙のイメージ */
+      .sheet {
+        position: relative;
+        margin: 0;
+        background: #fffdf8;
+        color: var(--ink);
+        padding: 26px 26px 20px;
+        transform: rotate(-1.6deg);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+      .sheet-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 8px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .sheet-head span:first-child {
+        font-family: var(--mincho);
+        font-size: 20px;
+        font-weight: 800;
+      }
+      .sheet ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .sheet li {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        padding: 13px 0;
+        border-bottom: 1px solid #d9d4c8;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .sheet li b {
+        font-family: var(--mincho);
+        font-weight: 800;
+        margin-right: 6px;
+      }
+      .sheet li small {
+        display: block;
+        font-size: 14px;
+        color: var(--sub);
+      }
+      .pen {
+        font-family: var(--hand);
+        font-style: normal;
+        color: var(--pen);
+        font-size: 27px;
+        line-height: 1.1;
+        transform: rotate(-6deg);
+        white-space: nowrap;
+        padding: 4px 10px;
+      }
+      .pen.ring {
+        border: 2.5px solid var(--pen);
+        border-radius: 50%;
+        padding: 5px 14px;
+      }
+      .sheet figcaption {
+        font-size: 14px;
+        color: var(--sub);
+        margin-top: 12px;
+        line-height: 1.6;
+      }
+      .corner {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 3px solid var(--gold);
+      }
+      .corner.tl {
+        top: -12px;
+        left: -12px;
+        border-right: 0;
+        border-bottom: 0;
+      }
+      .corner.tr {
+        top: -12px;
+        right: -12px;
+        border-left: 0;
+        border-bottom: 0;
+      }
+      .corner.bl {
+        bottom: -12px;
+        left: -12px;
+        border-right: 0;
+        border-top: 0;
+      }
+      .corner.br {
+        bottom: -12px;
+        right: -12px;
+        border-left: 0;
+        border-top: 0;
+      }
+
+      /* 3つの要点 */
+      .gist {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        margin-top: -36px;
+        position: relative;
+      }
+      .gist > div {
+        padding: 24px 26px;
+      }
+      .gist > div + div {
+        border-left: 1px solid var(--line);
+      }
+      .gist h3 {
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        color: var(--wood);
+        margin: 0 0 6px;
+        font-weight: 900;
+      }
+      .gist p {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.75;
+      }
+      .gist strong {
+        font-family: var(--mincho);
+        font-size: 22px;
+        font-weight: 800;
+        display: block;
+        line-height: 1.5;
+        margin-bottom: 4px;
+      }
+
+      /* 章 */
+      .sec {
+        padding: 72px 0 0;
+      }
+      .sec-head {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 18px;
+        align-items: baseline;
+        margin-bottom: 22px;
+        border-bottom: 2px solid var(--navy);
+        padding-bottom: 12px;
+      }
+      .sec-no {
+        font-family: var(--mincho);
+        font-weight: 800;
+        font-size: 44px;
+        line-height: 1;
+        color: var(--wood);
+      }
+      .sec-title {
+        font-family: var(--mincho);
+        font-weight: 800;
+        font-size: clamp(25px, 3vw, 33px);
+        line-height: 1.45;
+        margin: 0;
+      }
+      .sec-lede {
+        margin: 0 0 24px;
+        max-width: 44em;
+      }
+      .note {
+        font-size: 15px;
+        color: var(--sub);
+        line-height: 1.75;
+        margin: 14px 0 0;
+      }
+
+      /* 役割チップ */
+      .who {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        padding: 1px 9px;
+        border-radius: 3px;
+        margin-right: 6px;
+        vertical-align: 2px;
+        white-space: nowrap;
+      }
+      .who.ai {
+        background: var(--leaf);
+        color: #fff;
+      }
+      .who.hu {
+        background: #fff;
+        color: var(--navy);
+        box-shadow: inset 0 0 0 1.5px var(--navy);
+      }
+      .who.ch {
+        background: var(--wood);
+        color: #fff;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 18px;
+        font-size: 15px;
+        color: var(--sub);
+        margin: 0 0 14px;
+      }
+
+      /* 行の表 */
+      .rows {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--card);
+        overflow: hidden;
+      }
+      .rows .r {
+        display: grid;
+        border-top: 1px solid var(--line);
+      }
+      .rows .r:first-child {
+        border-top: 0;
+      }
+      .rows .r > div {
+        padding: 16px 18px;
+        min-width: 0;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      .rows .r > div + div {
+        border-left: 1px solid var(--line);
+      }
+      .rows .head > div {
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: var(--navy);
+        background: var(--band);
+        padding: 10px 18px;
+      }
+      .rows .step {
+        font-weight: 700;
+      }
+      .rows .step .num {
+        display: block;
+        font-size: 26px;
+        color: var(--wood);
+        line-height: 1.2;
+      }
+      .rows .keep {
+        background: var(--wood-soft);
+      }
+      .flow .r {
+        grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1.25fr);
+      }
+      .jobs .r {
+        grid-template-columns: 230px minmax(0, 1.3fr) minmax(0, 1fr) 110px;
+      }
+      .jobs .when {
+        font-weight: 700;
+        color: var(--leaf);
+      }
+
+      /* 3段階 */
+      .tiers {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      .tier {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-top: 5px solid var(--navy);
+        border-radius: 6px;
+        padding: 20px 22px;
+      }
+      .tier.t1 {
+        border-top-color: var(--leaf);
+      }
+      .tier h3 {
+        font-family: var(--mincho);
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.45;
+        margin: 0 0 8px;
+      }
+      .tier h3 span {
+        display: block;
+        font-family: var(--gothic);
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: var(--wood);
+      }
+      .tier p {
+        margin: 0 0 10px;
+        font-size: 17px;
+        line-height: 1.75;
+      }
+      .tier .ask {
+        font-size: 15px;
+        color: var(--sub);
+        border-top: 1px dashed var(--line);
+        padding-top: 10px;
+        margin: 0;
+        line-height: 1.7;
+      }
+      .tier .ask b {
+        color: var(--ink);
+      }
+
+      .two {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 22px;
+      }
+      .box {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 22px 24px;
+      }
+      .box h3 {
+        font-family: var(--mincho);
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0 0 12px;
+        line-height: 1.45;
+      }
+      .checks,
+      .plain {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .checks li {
+        position: relative;
+        padding: 7px 0 7px 34px;
+        font-size: 17px;
+        line-height: 1.65;
+        border-bottom: 1px dashed var(--line);
+      }
+      .checks li:last-child {
+        border-bottom: 0;
+      }
+      .checks li::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 12px;
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--navy);
+        border-radius: 2px;
+        background: #fff;
+      }
+      .plain li {
+        position: relative;
+        padding: 7px 0 7px 22px;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      .plain li::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 19px;
+        width: 9px;
+        height: 9px;
+        background: var(--wood);
+        border-radius: 50%;
+      }
+      .plain li b {
+        font-weight: 700;
+      }
+
+      /* 工程 */
+      .phases {
+        display: grid;
+        gap: 14px;
+      }
+      .phase {
+        display: grid;
+        grid-template-columns: 190px minmax(0, 1fr);
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .phase-when {
+        background: var(--navy);
+        color: #fff;
+        padding: 20px 20px;
+      }
+      .phase-when .num {
+        display: block;
+        font-size: 25px;
+        line-height: 1.35;
+      }
+      .phase-when span {
+        display: block;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--gold);
+        margin-top: 4px;
+      }
+      .phase.pre .phase-when,
+      .phase.post .phase-when {
+        background: var(--band);
+        color: var(--navy);
+      }
+      .phase.pre .phase-when span,
+      .phase.post .phase-when span {
+        color: var(--wood);
+      }
+      .phase-body {
+        padding: 18px 24px;
+      }
+      .phase-body ul {
+        margin: 0;
+        padding-left: 1.2em;
+      }
+      .phase-body li {
+        font-size: 17px;
+        line-height: 1.75;
+        margin: 3px 0;
+      }
+      .phase-body li b {
+        font-weight: 700;
+      }
+      .gate {
+        margin: 12px 0 0;
+        padding: 10px 14px;
+        background: var(--leaf-soft);
+        border-left: 4px solid var(--leaf);
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      .gate b {
+        color: var(--leaf);
+      }
+
+      /* 測り方 */
+      .measure {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .m {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 20px 22px;
+      }
+      .m h3 {
+        font-size: 19px;
+        font-weight: 900;
+        margin: 0 0 6px;
+        line-height: 1.5;
+      }
+      .m p {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.75;
+      }
+      .example {
+        margin-top: 18px;
+        background: var(--wood-soft);
+        border-radius: 6px;
+        padding: 20px 24px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 8px 22px;
+        align-items: center;
+      }
+      .example .tag {
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        color: #fff;
+        background: var(--wood);
+        padding: 2px 10px;
+        border-radius: 3px;
+        justify-self: start;
+      }
+      .example p {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.75;
+      }
+      .example .calc {
+        font-family: var(--mincho);
+        font-weight: 800;
+        font-size: clamp(21px, 2.4vw, 27px);
+        line-height: 1.6;
+        grid-column: 1 / -1;
+      }
+
+      /* 役割 */
+      .roles {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .role {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-left: 6px solid var(--navy);
+        border-radius: 6px;
+        padding: 20px 24px;
+      }
+      .role.r-ch {
+        border-left-color: var(--wood);
+      }
+      .role.r-cx {
+        border-left-color: var(--leaf);
+      }
+      .role h3 {
+        font-family: var(--mincho);
+        font-size: 23px;
+        font-weight: 800;
+        margin: 0 0 8px;
+      }
+      .role p {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.75;
+      }
+      .role .time {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--sub);
+        border-top: 1px dashed var(--line);
+        padding-top: 10px;
+      }
+
+      /* 費用 */
+      .price {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      }
+      .price-main {
+        padding: 30px 32px;
+        background: var(--navy);
+        color: #fff;
+      }
+      .price-main p {
+        margin: 0;
+        font-size: 17px;
+        color: #d5e0ea;
+      }
+      .price-main .big {
+        font-family: var(--mincho);
+        font-weight: 800;
+        font-size: clamp(34px, 4.2vw, 50px);
+        line-height: 1.35;
+        color: #fff;
+        margin: 6px 0 2px;
+      }
+      .price-main .big small {
+        font-size: 0.42em;
+        font-family: var(--gothic);
+        font-weight: 700;
+        margin-left: 4px;
+      }
+      .price-main .sum {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--gold);
+      }
+      .price-side {
+        padding: 26px 30px;
+      }
+      .price-side h3 {
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        color: var(--wood);
+        margin: 0 0 4px;
+      }
+      .price-side h3 + ul {
+        margin-bottom: 16px;
+      }
+
+      /* 次の一歩 */
+      .next {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+      .next .n {
+        display: grid;
+        grid-template-columns: 170px minmax(0, 1fr);
+        gap: 20px;
+        padding: 20px 26px;
+        border-top: 1px solid var(--line);
+        align-items: start;
+      }
+      .next .n:first-child {
+        border-top: 0;
+      }
+      .next .n h3 {
+        font-family: var(--mincho);
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0;
+        line-height: 1.5;
+      }
+      .next .n p {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.75;
+      }
+      .cta {
+        margin-top: 22px;
+        background: var(--navy);
+        color: #fff;
+        border-radius: 6px;
+        padding: 28px 32px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: center;
+      }
+      .cta p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.75;
+      }
+      .cta-btn {
+        display: inline-block;
+        background: var(--gold);
+        color: var(--navy);
+        font-weight: 900;
+        font-size: 18px;
+        text-decoration: none;
+        padding: 14px 26px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      .cta-btn:hover {
+        background: #fff;
+      }
+      .cta .url {
+        display: none;
+      }
+      .sign {
+        margin: 26px 0 0;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      .sign b {
+        font-family: var(--mincho);
+        font-size: 24px;
+        font-weight: 800;
+        display: block;
+      }
+
+      .refs {
+        margin: 56px 0 0;
+        padding: 26px 0 64px;
+        border-top: 1px solid var(--line);
+        font-size: 15px;
+        color: var(--sub);
+        line-height: 1.8;
+      }
+      .refs h2 {
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        margin: 0 0 8px;
+        color: var(--ink);
+      }
+      .refs ul {
+        margin: 0 0 14px;
+        padding-left: 1.2em;
+      }
+      .refs a {
+        word-break: break-all;
+      }
+
+      /* 画面が狭いとき */
+      @media screen and (max-width: 900px) {
+        body {
+          font-size: 17px;
+        }
+        .wrap {
+          padding: 0 18px;
+        }
+        .hero {
+          padding: 44px 0 64px;
+        }
+        .hero-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 40px;
+        }
+        .sheet {
+          max-width: 440px;
+          margin: 0 auto;
+        }
+        .gist,
+        .tiers,
+        .two,
+        .measure,
+        .roles,
+        .price {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .gist > div + div {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+        .sec {
+          padding-top: 56px;
+        }
+        .sec-no {
+          font-size: 36px;
+        }
+        .rows .head {
+          display: none;
+        }
+        .flow .r,
+        .jobs .r {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .rows .r > div + div {
+          border-left: 0;
+          border-top: 1px dashed var(--line);
+        }
+        .rows .r > div[data-l]::before {
+          content: attr(data-l);
+          display: block;
+          font-size: 14px;
+          font-weight: 900;
+          color: var(--wood);
+          letter-spacing: 0.08em;
+          margin-bottom: 2px;
+        }
+        .rows .step .num {
+          display: inline;
+          margin-right: 8px;
+        }
+        .phase {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .phase-when {
+          padding: 12px 20px;
+        }
+        .phase-when .num,
+        .phase-when span {
+          display: inline;
+          margin-right: 10px;
+        }
+        .next .n {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 4px;
+        }
+        .cta {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .example {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .topbar .brand {
+          font-size: 14px;
+        }
+      }
+
+      /* 印刷（A4） */
+      @media print {
+        @page {
+          size: A4;
+          margin: 13mm 12mm;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+        body {
+          background: #fff;
+          font-size: 10.5pt;
+          line-height: 1.7;
+        }
+        .wrap {
+          max-width: none;
+          padding: 0;
+        }
+        .topbar,
+        .cta-btn {
+          display: none;
+        }
+        .hero {
+          background: #fff;
+          color: var(--ink);
+          padding: 0 0 9mm;
+          border-bottom: 2pt solid var(--navy);
+        }
+        .hero-grid {
+          grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+          gap: 10mm;
+        }
+        .hero-to {
+          font-size: 10.5pt;
+          margin-bottom: 5mm;
+          border-left-color: var(--wood);
+        }
+        .hero-to b {
+          font-size: 13pt;
+        }
+        .hero-kicker {
+          color: var(--wood);
+          font-size: 9pt;
+        }
+        .hero-title {
+          font-size: 25pt;
+          margin-bottom: 4mm;
+        }
+        .hero-lede {
+          color: var(--ink);
+          font-size: 10.5pt;
+        }
+        .sheet {
+          box-shadow: none;
+          border: 1pt solid var(--ink);
+          padding: 5mm 5mm 4mm;
+          transform: rotate(-1deg);
+        }
+        .sheet-head {
+          font-size: 8.5pt;
+        }
+        .sheet-head span:first-child {
+          font-size: 12pt;
+        }
+        .sheet li {
+          font-size: 9.5pt;
+          padding: 2.2mm 0;
+        }
+        .sheet li small,
+        .sheet figcaption {
+          font-size: 8pt;
+        }
+        .pen {
+          font-size: 16pt;
+        }
+        .corner {
+          border-color: var(--wood);
+          width: 6mm;
+          height: 6mm;
+        }
+        .gist {
+          margin-top: 6mm;
+        }
+        .gist > div {
+          padding: 4mm 5mm;
+        }
+        .gist h3 {
+          font-size: 8.5pt;
+        }
+        .gist p {
+          font-size: 10pt;
+        }
+        .gist strong {
+          font-size: 12.5pt;
+        }
+        .sec {
+          padding-top: 9mm;
+        }
+        .sec-head {
+          margin-bottom: 4mm;
+          padding-bottom: 2mm;
+          break-after: avoid;
+        }
+        .sec-no {
+          font-size: 24pt;
+        }
+        .sec-title {
+          font-size: 17pt;
+        }
+        .sec-lede {
+          margin-bottom: 4mm;
+          max-width: none;
+        }
+        .note {
+          font-size: 8.5pt;
+          margin-top: 2.5mm;
+        }
+        .who {
+          font-size: 8pt;
+        }
+        .legend {
+          font-size: 8.5pt;
+          margin-bottom: 2.5mm;
+        }
+        .rows .r > div {
+          padding: 2.6mm 3.2mm;
+          font-size: 9.5pt;
+          line-height: 1.6;
+        }
+        .rows .head > div {
+          font-size: 8.5pt;
+          padding: 1.8mm 3.2mm;
+        }
+        .rows .step .num {
+          font-size: 14pt;
+        }
+        .flow .r {
+          grid-template-columns: 38mm minmax(0, 1fr) minmax(0, 1.25fr);
+        }
+        .jobs .r {
+          grid-template-columns: 44mm minmax(0, 1.3fr) minmax(0, 1fr) 20mm;
+        }
+        .tiers {
+          gap: 3mm;
+          margin-bottom: 3mm;
+        }
+        .tier {
+          padding: 4mm 4.5mm;
+        }
+        .tier h3 {
+          font-size: 12.5pt;
+        }
+        .tier h3 span {
+          font-size: 8.5pt;
+        }
+        .tier p {
+          font-size: 9.5pt;
+        }
+        .tier .ask {
+          font-size: 8.5pt;
+        }
+        .two {
+          gap: 4mm;
+          margin-top: 4mm;
+        }
+        .box {
+          padding: 4mm 5mm;
+        }
+        .box h3 {
+          font-size: 12.5pt;
+          margin-bottom: 2mm;
+        }
+        .checks li,
+        .plain li {
+          font-size: 9.5pt;
+          padding-top: 1.4mm;
+          padding-bottom: 1.4mm;
+        }
+        .checks li::before {
+          top: 2.2mm;
+          width: 3.6mm;
+          height: 3.6mm;
+        }
+        .plain li::before {
+          top: 3.4mm;
+          width: 2mm;
+          height: 2mm;
+        }
+        .phases {
+          gap: 2.5mm;
+        }
+        .phase {
+          grid-template-columns: 36mm minmax(0, 1fr);
+        }
+        .phase-when {
+          padding: 3.5mm 4mm;
+        }
+        .phase-when .num {
+          font-size: 13pt;
+        }
+        .phase-when span {
+          font-size: 9.5pt;
+        }
+        .phase-body {
+          padding: 3mm 5mm;
+        }
+        .phase-body li {
+          font-size: 9.5pt;
+          line-height: 1.6;
+        }
+        .gate {
+          font-size: 9.5pt;
+          padding: 1.8mm 3mm;
+          margin-top: 2mm;
+        }
+        .measure,
+        .roles {
+          gap: 3mm;
+        }
+        .m,
+        .role {
+          padding: 4mm 4.5mm;
+        }
+        .m h3 {
+          font-size: 11pt;
+        }
+        .m p,
+        .role p {
+          font-size: 9.5pt;
+        }
+        .role h3 {
+          font-size: 13pt;
+        }
+        .role .time {
+          font-size: 9pt;
+        }
+        .example {
+          padding: 4mm 5mm;
+          margin-top: 3mm;
+        }
+        .example p {
+          font-size: 9.5pt;
+        }
+        .example .calc {
+          font-size: 13pt;
+        }
+        .price-main {
+          padding: 6mm 7mm;
+        }
+        .price-main p {
+          font-size: 9.5pt;
+        }
+        .price-main .big {
+          font-size: 25pt;
+        }
+        .price-main .sum {
+          font-size: 11.5pt;
+        }
+        .price-side {
+          padding: 5mm 6mm;
+        }
+        .price-side h3 {
+          font-size: 8.5pt;
+        }
+        .next .n {
+          grid-template-columns: 36mm minmax(0, 1fr);
+          padding: 3.5mm 5mm;
+        }
+        .next .n h3 {
+          font-size: 12.5pt;
+        }
+        .next .n p {
+          font-size: 9.5pt;
+        }
+        .cta {
+          padding: 5mm 6mm;
+          margin-top: 4mm;
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .cta p {
+          font-size: 10pt;
+        }
+        .cta .url {
+          display: block;
+          font-weight: 700;
+          color: var(--gold);
+          margin-top: 1mm;
+        }
+        .sign {
+          font-size: 9.5pt;
+          margin-top: 5mm;
+        }
+        .sign b {
+          font-size: 13pt;
+        }
+        .refs {
+          margin-top: 8mm;
+          padding: 4mm 0 0;
+          font-size: 8pt;
+        }
+        .refs h2 {
+          font-size: 8.5pt;
+        }
+        .tier,
+        .box,
+        .phase,
+        .m,
+        .role,
+        .rows .r,
+        .price,
+        .next .n,
+        .cta,
+        .example,
+        .gist,
+        .sheet {
+          break-inside: avoid;
+        }
+      }
+      /* 仕上げの調整 */
+      .sec-lede {
+        max-width: none;
+        text-wrap: pretty;
+      }
+      .act {
+        display: block;
+      }
+      .act + .act {
+        margin-top: 4px;
+      }
+      .printbtn {
+        white-space: nowrap;
+      }
+      .price-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @media screen and (max-width: 900px) {
+        .brand-date {
+          display: none;
+        }
+        .sheet {
+          margin: 0 12px;
+        }
+      }
+      @media print {
+        .hero {
+          padding-bottom: 7mm;
+        }
+        .hero-title {
+          font-size: 22pt;
+          margin-bottom: 3mm;
+        }
+        .sheet {
+          transform: none;
+          margin: 4mm 4mm 3mm 3mm;
+        }
+        .corner.tl {
+          top: -2.5mm;
+          left: -2.5mm;
+        }
+        .corner.tr {
+          top: -2.5mm;
+          right: -2.5mm;
+        }
+        .corner.bl {
+          bottom: -2.5mm;
+          left: -2.5mm;
+        }
+        .corner.br {
+          bottom: -2.5mm;
+          right: -2.5mm;
+        }
+        .gist {
+          margin-top: 5mm;
+        }
+        .gist > div {
+          padding: 3mm 4mm;
+        }
+        .gist p {
+          font-size: 9.5pt;
+        }
+        .sec {
+          padding-top: 7mm;
+        }
+        .rows .r > div {
+          padding: 2.2mm 3.2mm;
+        }
+        .act + .act {
+          margin-top: 0.6mm;
+        }
+        #s2,
+        #s3,
+        #s4,
+        #s5,
+        #s7 {
+          break-before: page;
+          padding-top: 0;
+        }
+        .plain li {
+          padding-top: 1mm;
+          padding-bottom: 1mm;
+        }
+        .price-side {
+          padding: 4mm 6mm;
+        }
+        .next .n {
+          padding: 2.8mm 5mm;
+        }
+        .cta {
+          margin-top: 3mm;
+          padding: 4mm 6mm;
+        }
+        .sign {
+          margin-top: 3.5mm;
+        }
+        .refs {
+          margin-top: 5mm;
+          padding-top: 3mm;
+          line-height: 1.6;
+        }
+        .refs ul {
+          margin-bottom: 2mm;
+        }
+      }
+      @media print {
+        .hero {
+          padding-bottom: 5mm;
+        }
+        .hero-grid {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          gap: 8mm;
+          align-items: start;
+        }
+        .hero-to {
+          margin-bottom: 3mm;
+        }
+        .hero-title {
+          font-size: 20pt;
+        }
+        .sheet {
+          padding: 4mm 5mm 3mm;
+          margin: 3mm 3mm 2mm 3mm;
+        }
+        .sheet li {
+          font-size: 9pt;
+          padding: 1.6mm 0;
+        }
+        .sheet li b {
+          white-space: nowrap;
+        }
+        .pen {
+          font-size: 14pt;
+          padding: 0.5mm 2mm;
+        }
+        .pen.ring {
+          padding: 0.8mm 3mm;
+        }
+        .sheet figcaption {
+          margin-top: 2mm;
+        }
+        .gist {
+          margin-top: 4mm;
+        }
+        .gist strong {
+          font-size: 12pt;
+        }
+        .gist p {
+          font-size: 9pt;
+          line-height: 1.6;
+        }
+        #s1 {
+          padding-top: 5mm;
+        }
+        #s1 .legend {
+          display: none;
+        }
+        .rows .r > div {
+          padding: 1.8mm 3.2mm;
+          font-size: 9pt;
+          line-height: 1.5;
+        }
+      }
+      @media print {
+        .hero {
+          padding-bottom: 3mm;
+        }
+        .gist {
+          margin-top: 3mm;
+        }
+        #s1 {
+          padding-top: 3mm;
+        }
+        #s1 .sec-head {
+          margin-bottom: 3mm;
+        }
+        #s1 .sec-lede {
+          margin-bottom: 3mm;
+        }
+        #s1 .note {
+          margin-top: 1.5mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="wrap">
+        <span class="brand"
+          >株式会社コミクス｜進め方（案）<span class="brand-date"
+            >2026年11月20日</span
+          ></span
+        >
+        <button class="printbtn" type="button" onclick="window.print()">
+          このページを印刷する
+        </button>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="hero-to">
+            TOMAコンサルタンツグループ株式会社<br /><b>会長 藤間 秋男 様</b
+            >　上原 様
+          </p>
+          <p class="hero-kicker">本日のお打ち合わせを受けて</p>
+          <h1 class="hero-title">
+            紙はそのまま。<br />その前と後を、<br />AIに任せます。
+          </h1>
+          <p class="hero-lede">
+            上原様のご業務を自動化する6か月の進め方を、週ごとの作業と、皆様にお願いしたいことまで具体的にまとめました。
+          </p>
+        </div>
+        <figure class="sheet">
+          <span class="corner tl"></span><span class="corner tr"></span
+          ><span class="corner bl"></span><span class="corner br"></span>
+          <div class="sheet-head">
+            <span>ご確認用</span><span>同じ時間帯のご予定 3件</span>
+          </div>
+          <ul>
+            <li>
+              <div>
+                <b>14:00–15:00</b>ご来客<small>会議室は空いています</small>
+              </div>
+              <em class="pen ring">出席</em>
+            </li>
+            <li>
+              <div>
+                <b>14:00–16:00</b>異業種交流会<small>ご回答の期限は2日後</small>
+              </div>
+              <em class="pen">欠席で</em>
+            </li>
+            <li>
+              <div>
+                <b>14:30–15:00</b>取材のご依頼<small
+                  >先方の候補日があと2つ</small
+                >
+              </div>
+              <em class="pen">来週に</em>
+            </li>
+          </ul>
+          <figcaption>
+            紙に書かれたご指示を撮影すると、予定への反映と連絡文の用意までが進みます（画面はイメージです）。
+          </figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="gist">
+        <div>
+          <h3>変えないこと</h3>
+          <p>
+            <strong>紙で確認し、紙に書く。</strong
+            >会長のなさり方は今のままです。全社でのJAPAN
+            AIのご利用も、そのまま続けていただきます。
+          </p>
+        </div>
+        <div>
+          <h3>変えること</h3>
+          <p>
+            <strong>紙の前後にある手作業。</strong
+            >予定の照らし合わせ、候補の整理、予定への反映、関係者への連絡をAIが担います。
+          </p>
+        </div>
+        <div>
+          <h3>めざす姿</h3>
+          <p>
+            <strong>約2か月で、定型業務の時間を半分程度に。</strong
+            >空いた時間を、上原様の企画のお仕事へ。当社の見込みで、保証するものではありません。
+          </p>
+        </div>
+      </div>
+
+      <!-- 1 -->
+      <section class="sec" id="s1">
+        <div class="sec-head">
+          <span class="sec-no">1</span>
+          <h2 class="sec-title">
+            いちばん時間のかかるスケジュール調整は、こう変わります
+          </h2>
+        </div>
+        <p class="sec-lede">
+          同じ時間に3〜4件の予定が重なり、最終のご判断が前日や当日になる。この前提は変えずに、上原様の手を動かす回数を減らします。
+        </p>
+        <p class="legend">
+          <span><span class="who ch">会長</span>会長がなさること</span
+          ><span><span class="who hu">上原様</span>上原様がなさること</span
+          ><span><span class="who ai">AI</span>AIが担うこと</span>
+        </p>
+        <div class="rows flow">
+          <div class="r head">
+            <div>流れ</div>
+            <div>今</div>
+            <div>これから</div>
+          </div>
+          <div class="r">
+            <div class="step"><span class="num">①</span>依頼や案内が届く</div>
+            <div data-l="今">
+              <span class="who hu">上原様</span
+              >メールや案内を読み、日時や相手を把握する
+            </div>
+            <div data-l="これから">
+              <span class="who ai">AI</span
+              >日時・場所・相手・回答期限を抜き出して一覧にする
+            </div>
+          </div>
+          <div class="r">
+            <div class="step">
+              <span class="num">②</span>予定と照らし合わせる
+            </div>
+            <div data-l="今">
+              <span class="who hu">上原様</span
+              >サイボウズで会長・同席者・会議室の予定を一つずつ確認する
+            </div>
+            <div data-l="これから">
+              <span class="who ai">AI</span
+              >予定と照らして、重なりと空きを整理する（連携の範囲は3章でご判断いただきます）
+            </div>
+          </div>
+          <div class="r">
+            <div class="step"><span class="num">③</span>紙で会長へ</div>
+            <div data-l="今">
+              <span class="who hu">上原様</span>予定やメールを印刷してお渡しする
+            </div>
+            <div data-l="これから">
+              <span class="act"
+                ><span class="who ai">AI</span
+                >重なった予定を1枚にまとめた「ご確認用」をつくる</span
+              >
+              <span class="act"
+                ><span class="who hu">上原様</span
+                >目を通して印刷し、お渡しする</span
+              >
+            </div>
+          </div>
+          <div class="r keep">
+            <div class="step"><span class="num">④</span>会長のご判断</div>
+            <div data-l="今">
+              <span class="who ch">会長</span>紙を見て、紙に指示を書く
+            </div>
+            <div data-l="これから">
+              <span class="who ch">会長</span>今と同じです。変わりません
+            </div>
+          </div>
+          <div class="r">
+            <div class="step"><span class="num">⑤</span>予定への反映と連絡</div>
+            <div data-l="今">
+              <span class="who hu">上原様</span
+              >予定を登録し直し、関係者へ1件ずつ連絡する
+            </div>
+            <div data-l="これから">
+              <span class="act"
+                ><span class="who hu">上原様</span
+                >紙をスマートフォンで撮影する</span
+              >
+              <span class="act"
+                ><span class="who ai">AI</span
+                >ご指示を読み取り、予定の登録内容と連絡文を用意する</span
+              >
+              <span class="act"
+                ><span class="who hu">上原様</span>確認して確定する</span
+              >
+            </div>
+          </div>
+        </div>
+        <p class="note">
+          送信と登録の前には、必ず上原様の確認が入ります。AIが自分の判断で連絡を送ることはありません。
+        </p>
+      </section>
+
+      <!-- 2 -->
+      <section class="sec" id="s2">
+        <div class="sec-head">
+          <span class="sec-no">2</span>
+          <h2 class="sec-title">対象の6業務と、任せていく順番</h2>
+        </div>
+        <p class="sec-lede">
+          一度に全部を移しません。いちばん時間のかかる業務から一つ始め、2週間試した結果を見て広げます。
+        </p>
+        <div class="rows jobs">
+          <div class="r head">
+            <div>業務</div>
+            <div>AIが担うこと</div>
+            <div>人が行うこと</div>
+            <div>着手</div>
+          </div>
+          <div class="r">
+            <div class="step">
+              <span class="num">1</span>会長のスケジュール調整
+            </div>
+            <div data-l="AIが担うこと">
+              予定の照らし合わせ、重なりの整理、「ご確認用」の作成、紙のご指示の読み取り、連絡文の下書き
+            </div>
+            <div data-l="人が行うこと">印刷とお渡し、内容の確認、確定</div>
+            <div data-l="着手" class="when">1か月目</div>
+          </div>
+          <div class="r">
+            <div class="step">
+              <span class="num">2</span>問い合わせ対応・アポイントの日程調整
+            </div>
+            <div data-l="AIが担うこと">候補日の抽出、返信の下書き</div>
+            <div data-l="人が行うこと">送信前の確認</div>
+            <div data-l="着手" class="when">2か月目</div>
+          </div>
+          <div class="r">
+            <div class="step"><span class="num">3</span>企画提案書の作成</div>
+            <div data-l="AIが担うこと">
+              過去の企画書を踏まえた構成案と下書き。材料集めと指示出しを自動にします（作成にJAPAN
+              AIを使う形も続けられます）
+            </div>
+            <div data-l="人が行うこと">会長のご方針の伝達、仕上げ</div>
+            <div data-l="着手" class="when">2か月目</div>
+          </div>
+          <div class="r">
+            <div class="step">
+              <span class="num">4</span>セミナーごとのレジュメ作成
+            </div>
+            <div data-l="AIが担うこと">
+              過去のレジュメと企画書から、ページ数と時間に合わせたスライド案をつくる
+            </div>
+            <div data-l="人が行うこと">内容の確認、仕上げ</div>
+            <div data-l="着手" class="when">2か月目</div>
+          </div>
+          <div class="r">
+            <div class="step">
+              <span class="num">5</span>セミナー依頼時のやり取り
+            </div>
+            <div data-l="AIが担うこと">
+              日時・会場・テーマ・持ち時間など確認項目の抜け漏れを知らせ、返信を下書きする
+            </div>
+            <div data-l="人が行うこと">条件のご判断、送信前の確認</div>
+            <div data-l="着手" class="when">3か月目</div>
+          </div>
+          <div class="r">
+            <div class="step">
+              <span class="num">6</span>異業種交流会の出欠判断の準備
+            </div>
+            <div data-l="AIが担うこと">
+              案内の要点整理、ほかの予定との重なりの表示、出欠の連絡文の下書き
+            </div>
+            <div data-l="人が行うこと">印刷とお渡し、会長のご判断の反映</div>
+            <div data-l="着手" class="when">3か月目</div>
+          </div>
+        </div>
+        <p class="note">
+          TikTok・YouTubeは別の方がご担当のため、今回の対象には含めていません。
+        </p>
+      </section>
+
+      <!-- 3 -->
+      <section class="sec" id="s3">
+        <div class="sec-head">
+          <span class="sec-no">3</span>
+          <h2 class="sec-title">開始前のご確認（IT部門・本体の皆様へ）</h2>
+        </div>
+        <p class="sec-lede">
+          サイボウズはグループ全体でお使いのため、連携はご判断を待ちます。ご判断を待つ間も進められるよう、連携の範囲を3段階に分けました。段階1から始め、ご判断に合わせて段階2、段階3へ進めます。
+        </p>
+        <div class="tiers">
+          <div class="tier t1">
+            <h3><span>段階1</span>手渡しで始める</h3>
+            <p>
+              上原様が、予定の印刷物やメールの文面をAIに渡します。AIは整理と下書きまで。予定の登録と送信は上原様が行います。
+            </p>
+            <p class="ask">
+              <b>必要なご確認：</b
+              >上原様のPCへのソフトウェア導入と、外部のAIサービスのご利用の可否
+            </p>
+          </div>
+          <div class="tier">
+            <h3><span>段階2</span>AIが予定を読みに行く</h3>
+            <p>
+              AIが、上原様の権限の範囲で予定を確認します。予定の登録と送信は、引き続き上原様が行います。
+            </p>
+            <p class="ask">
+              <b>必要なご確認：</b
+              >予定の読み取り方法。サイボウズの連携機能（API）を使うか、上原様の許可のもとでAIが画面を操作するか
+            </p>
+          </div>
+          <div class="tier">
+            <h3><span>段階3</span>確認後の登録と連絡まで</h3>
+            <p>
+              上原様が確認して承認した内容を、AIが予定に登録し、関係者へ連絡します。
+            </p>
+            <p class="ask">
+              <b>必要なご確認：</b>予定への書き込みと、連絡の送信を認める範囲
+            </p>
+          </div>
+        </div>
+        <p class="note">
+          空けられる時間は、連携の段階によって変わります。ご確認の結果を踏まえ、開始時に目標の数字を合意します。
+        </p>
+
+        <div class="two">
+          <div class="box">
+            <h3>IT部門の皆様へのご確認事項</h3>
+            <ul class="checks">
+              <li>
+                お使いのサイボウズ製品と、ご契約の形（クラウド版か、社内設置か）
+              </li>
+              <li>外部の仕組みから予定を読み書きする機能（API）の利用可否</li>
+              <li>
+                上原様のアカウントで、AIが画面を操作して予定を確認することの可否
+              </li>
+              <li>
+                上原様のPCへのソフトウェア（Claude Code または Codex）導入の可否
+              </li>
+              <li>
+                外部のAIサービスに関する社内規程と、AIに渡してよい情報の範囲
+              </li>
+              <li>
+                メール・チャットのご利用環境と、文面をAIに読ませることの可否
+              </li>
+              <li>操作の記録（ログ）の残し方と、ご報告の要否</li>
+              <li>以上をご判断いただく窓口（IT部門・本体）のご担当者</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>安全面の考え方</h3>
+            <ul class="plain">
+              <li>
+                <b>上原様のPCで動かします。</b
+                >資料はPCの中に置いたまま扱います。
+              </li>
+              <li>
+                <b
+                  >AIに読ませた文面は、処理のためにAI提供元のサーバーへ送られます。</b
+                >法人向けのご契約では、送った内容をAIの学習に使わない設定が標準です（当社の理解です。ご契約時に規約の原文でご確認いただきます）。
+              </li>
+              <li>
+                <b>守秘義務のある情報は、対象外から始めます。</b
+                >AIに渡す情報の範囲を先に決め、広げるときはその都度ご判断いただきます。
+              </li>
+              <li><b>送信と登録の前に、必ず上原様が確認します。</b></li>
+              <li>
+                <b>上原様の権限を超える操作はしません。</b
+                >いつでも止められる形でつくります。
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="note">
+          IT部門の皆様へのご説明が必要な場合は、鈴木が直接ご説明します（オンライン30分）。
+        </p>
+      </section>
+
+      <!-- 4 -->
+      <section class="sec" id="s4">
+        <div class="sec-head">
+          <span class="sec-no">4</span>
+          <h2 class="sec-title">6か月の工程</h2>
+        </div>
+        <p class="sec-lede">
+          3か月目までに対象業務のほぼすべてを自動化し、4〜6か月目で調整と精度の向上に充てます。開始時期は、皆様のご判断の後に決めます。
+        </p>
+        <div class="phases">
+          <div class="phase pre">
+            <div class="phase-when">
+              <b class="num">開始前</b><span>確かめる</span>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>IT部門・本体の皆様に、3章のご確認事項へご回答いただく</li>
+                <li>連携の段階（1〜3）と、AIに渡してよい情報の範囲を決める</li>
+                <li>開始日と、週1回の作業会の曜日を決める</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-when">
+              <b class="num">1か月目</b><span>整える</span>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>
+                  <b>第1週</b
+                  >　上原様の1週間のご業務を、業務ごとの時間で記録する（開始時点の数字になります）。PCにClaude
+                  Code（またはCodex）を設定する
+                </li>
+                <li>
+                  <b>第2週</b
+                  >　6業務の手順を伺い、「人が決めること」と「AIに任せること」に仕分ける。過去のレジュメ・企画書・定型の返信文を1か所に集め、AIが読める形に整える
+                </li>
+                <li>
+                  <b>第3〜4週</b
+                  >　最初の業務として「ご確認用」の1枚を試作し、実際のご依頼で2週間試す
+                </li>
+              </ul>
+              <p class="gate">
+                <b>確認の節目</b>　2週間の結果を一緒に見て、続け方を決めます。
+              </p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-when">
+              <b class="num">2か月目</b><span>つなぐ</span>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>
+                  <b>第5〜6週</b
+                  >　紙のご指示の読み取りから、予定の登録内容と連絡文の用意までをつなぐ。問い合わせ・アポイントの返信の下書きを始める
+                </li>
+                <li><b>第7〜8週</b>　企画提案書とレジュメの下書きを始める</li>
+              </ul>
+              <p class="gate">
+                <b>確認の節目</b
+                >　業務ごとの時間をもう一度記録します。目標は、定型業務の時間を半分程度にすることです。
+              </p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-when">
+              <b class="num">3か月目</b><span>任せる</span>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>
+                  セミナー依頼時のやり取りと、異業種交流会の出欠準備を加える
+                </li>
+                <li>
+                  毎朝、「本日のご予定」と「回答待ちの一覧」が自動で届く形にする
+                </li>
+                <li>
+                  対象6業務のほぼすべてが、「最初の指示」と「確認」で回る状態にする
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-when">
+              <b class="num">4〜6か月目</b><span>磨く</span>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>手直しが出た箇所を月ごとに確認し、仕組みを直す</li>
+                <li>上原様がご不在の日にも回せるよう、手順書を整える</li>
+                <li>6か月目に、成果の数字と手順書をまとめてご報告する</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase post">
+            <div class="phase-when">
+              <b class="num">その後</b><span>広げる</span>
+            </div>
+            <div class="phase-body">
+              <ul>
+                <li>
+                  お二人のチームで出た成果の数字と手順書を、アウトソーシング部門や会計・社労士事務所への横展開をご検討いただく材料としてお渡しする
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="sec" id="s5">
+        <div class="sec-head">
+          <span class="sec-no">5</span>
+          <h2 class="sec-title">成果の測り方</h2>
+        </div>
+        <p class="sec-lede">
+          感覚で判断しないよう、開始の第1週、2か月目の終わり、6か月目に、同じ方法で3つの数字を記録します。
+        </p>
+        <div class="measure">
+          <div class="m">
+            <h3>定型業務にかかる時間</h3>
+            <p>対象6業務に使っている時間を、1週間分、業務ごとに記録します。</p>
+          </div>
+          <div class="m">
+            <h3>調整1件あたりの時間</h3>
+            <p>
+              ご依頼が届いてから、予定の確定と連絡が終わるまでに、上原様が手を動かした時間です。
+            </p>
+          </div>
+          <div class="m">
+            <h3>企画に使えた時間</h3>
+            <p>空いた時間が、企画などのお仕事に回ったかを確かめます。</p>
+          </div>
+        </div>
+        <div class="example">
+          <span class="tag">仮定</span>
+          <p>
+            たとえば、定型業務が1日4時間の場合の計算です。実際の数字は、第1週の記録に置き換えます。
+          </p>
+          <p class="calc">1日4時間 × 半分 ＝ 1日2時間　→　月20日で 約40時間</p>
+        </div>
+        <p class="note">
+          数字は説明のための仮定で、効果を保証するものではありません。
+        </p>
+      </section>
+
+      <!-- 6 -->
+      <section class="sec" id="s6">
+        <div class="sec-head">
+          <span class="sec-no">6</span>
+          <h2 class="sec-title">皆様の役割と、お願いしたいお時間</h2>
+        </div>
+        <div class="roles">
+          <div class="role r-ch">
+            <h3>藤間会長</h3>
+            <p>
+              今までどおり、紙でご確認いただき、紙にご指示をお書きください。新しく覚えていただく操作はありません。
+            </p>
+            <p class="time">
+              2か月目の終わりと6か月目に、成果のご報告（各30分）
+            </p>
+          </div>
+          <div class="role">
+            <h3>上原様</h3>
+            <p>
+              日々のお仕事は「最初の指示」と「確認」が中心になります。週1回の作業会で、手順を一緒に形にしていきます。
+            </p>
+            <p class="time">
+              週1回・60分の作業会（オンライン）。第1週のみ業務時間の記録
+            </p>
+          </div>
+          <div class="role">
+            <h3>IT部門・本体の皆様</h3>
+            <p>
+              3章のご確認事項へのご回答と、連携の段階のご判断をお願いします。
+            </p>
+            <p class="time">
+              開始前のご確認。PC設定時の立ち会いは、ご希望に合わせます
+            </p>
+          </div>
+          <div class="role r-cx">
+            <h3>株式会社コミクス</h3>
+            <p>
+              業務の整理、自動化の設計と構築、手順書づくり、週ごとの伴走を担います。作業会のほか、チャットで随時ご相談いただけます。
+            </p>
+            <p class="time">
+              当社の稼働は月10時間まで（作業会と、構築・調整の時間）
+            </p>
+          </div>
+        </div>
+        <p class="note">
+          作業会の回数と時間は案です。開始時にご都合に合わせて決めます。
+        </p>
+      </section>
+
+      <!-- 7 -->
+      <section class="sec" id="s7">
+        <div class="sec-head">
+          <span class="sec-no">7</span>
+          <h2 class="sec-title">費用</h2>
+        </div>
+        <div class="price">
+          <div class="price-main">
+            <p>上原様のご業務の自動化（伴走支援）</p>
+            <p class="big">月額20万円<small>（税別）</small></p>
+            <p class="sum">× 6か月 ＝ 合計120万円（税別）</p>
+          </div>
+          <div class="price-side">
+            <h3>含まれるもの</h3>
+            <ul class="plain">
+              <li>業務の整理と、自動化の設計・構築・調整</li>
+              <li>週1回の作業会と、チャットでのご相談</li>
+              <li>手順書と、成果のご報告</li>
+            </ul>
+            <h3>別途かかるもの</h3>
+            <ul class="plain">
+              <li>
+                AIツールの利用料（御社名義でのご契約・実費）。金額はツールとプランで変わるため、開始前のご確認とあわせてご案内します
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="note">
+          当社の「生成AI活用支援パック
+          ベーシック（共同実施型）」の枠組みで進めます。ご参加は4名様まで、当社の稼働は月10時間までです。約2か月で業務時間の半分程度を空けるという見込みは、成果を保証するものではありません。
+        </p>
+      </section>
+
+      <!-- 8 -->
+      <section class="sec" id="s8">
+        <div class="sec-head">
+          <span class="sec-no">8</span>
+          <h2 class="sec-title">次の一歩</h2>
+        </div>
+        <div class="next">
+          <div class="n">
+            <h3>藤間会長</h3>
+            <p>
+              事前にお送りした提案資料と本資料をご確認のうえ、社長・IT担当・企画部の皆様へご共有ください。ご検討いただけるかどうかのご判断をお待ちします。
+            </p>
+          </div>
+          <div class="n">
+            <h3>上原様</h3>
+            <p>
+              3章の「ご確認事項」をIT部門へお渡しください。サイボウズとの連携とセキュリティ面は、本体へのご確認をお願いします。
+            </p>
+          </div>
+          <div class="n">
+            <h3>コミクス</h3>
+            <p>
+              ご要望があれば、IT部門や本体の皆様へ鈴木が直接ご説明します。開始日が決まりましたら、第1週にご用意いただくものをご案内します。
+            </p>
+          </div>
+        </div>
+        <div class="cta">
+          <p>
+            IT部門の皆様へのご説明や、進め方のご相談は、30分のオンラインミーティングで承ります。
+            <span class="url">https://comix.eeasy.jp/suzuki/online</span>
+          </p>
+          <a class="cta-btn" href="https://comix.eeasy.jp/suzuki/online"
+            >日時を選んで予約する</a
+          >
+        </div>
+        <p class="sign"><b>鈴木章裕</b>株式会社コミクス 代表取締役</p>
+      </section>
+
+      <div class="refs">
+        <h2>関連資料</h2>
+        <ul>
+          <li>
+            本日のお打ち合わせの議事録：<a
+              href="https://claude.ai/artifact/JqC5MaUwctp7mdUDDsv5qs"
+              >https://claude.ai/artifact/JqC5MaUwctp7mdUDDsv5qs</a
+            >
+          </li>
+          <li>
+            事前にお送りした提案資料（グループ全体の施策）：<a
+              href="https://suzuki-commits.github.io/toma-ai-support-proposal-20261120/"
+              >https://suzuki-commits.github.io/toma-ai-support-proposal-20261120/</a
+            >
+          </li>
+        </ul>
+        <h2>ご留意いただきたいこと</h2>
+        <ul>
+          <li>
+            本資料は、2026年11月20日のお打ち合わせで伺った内容にもとづく進め方の案です。業務の内容や順番は、開始時の聞き取りで見直します。
+          </li>
+          <li>
+            費用と支援の範囲は、当社「AI支援メニュー一覧」の生成AI活用支援パック
+            ベーシックにもとづきます。金額はすべて税別です。
+          </li>
+          <li>
+            サイボウズとの連携方法と範囲は、御社IT部門・本体のご判断の後に確定します。開始時期は未定です。
+          </li>
+          <li>
+            効果に関する記載は当社の見込み、または説明のための仮定で、成果を保証するものではありません。
+          </li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
